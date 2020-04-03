@@ -14,17 +14,45 @@ exports.findcasByFilter = function (classification, callback) {
         console.log("Connected successfully to server");
         const db = client.db(dbName);
         //test = "";
-        let req = classification ? classification : { $exists: true };
-        let filter = { "cas_classification": req }
+        let req = classification ? classification : {$exists: true};
+        let filter = {"cas_classification": req};
         db.collection('cas').find(filter).toArray().then(cas => {
             db.collection('cas').find(filter).count().then(count => callback(cas, count))
         })
 
     });
-}
+};
 
-exports.findCasById = function (idCas, callback) { }
+exports.findCasById = function (idCas, callback) {
+    client.connect(function (err) {
+        assert.equal(null, err);
+        const db = client.db(dbName);
+        const query = {id_cas: idCas};
+        db.collection('cas').findOne(query, (err, item) => {
+            callback(item);
+        })
+    });
+};
 
-exports.findTemoignagesById = function (idTemoignanges, callback) { }
+exports.findTemoignageById = function (idTemoignange, callback) {
+    client.connect(function (err) {
+            assert.equal(null, err);
+            const db = client.db(dbName);
+            const query = {id_temoignage: idTemoignange};
+            db.collection('temoignages').findOne(query, (err, item) => {
+                callback(item);
+            })
+        }
+    )
+};
 
-exports.findTemoignagesByCas = function (idCas, callback) { }
+exports.findTemoignagesByCasId = function (idCas, callback) {
+    client.connect(function (err) {
+        assert.equal(null, err);
+        const db = client.db(dbName);
+        const query = {id_cas: idCas};
+        db.collection('temoignages').find(query).toArray().then( items => {
+            callback(items);
+        })
+    })
+};
