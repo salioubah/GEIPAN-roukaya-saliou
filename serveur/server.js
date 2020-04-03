@@ -11,8 +11,10 @@ app.listen(8888, function () {
 })
 app.get('/cas', function (req, res) {
 	let classification = req.query.classification || '';
-	mongoDBModule.findcasByFilter(classification, function (cas, count) {
-		console.log(count)
-		res.send(JSON.stringify(cas));
+	let zone = req.query.zone || '';
+	let resume = req.query.resume || '';
+	mongoDBModule.findcasByFilter(classification, zone, resume, function (cas, count) {
+		let responseJson = { "count": count, "data": cas }
+		res.send(responseJson);
 	})
 })
