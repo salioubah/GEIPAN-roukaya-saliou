@@ -16,27 +16,17 @@ exports.findcasByFilter = function (page, pagesize, classification, zone, resume
         let reqZone = zone ? zone : { $exists: true };
         let reqResume = resume ? { $regex: ".*" + resume + ".*", $options: "i" } : { $exists: true };
         //let reqDate = (dateCasDebut && dateCasFin) ? { $gte: dateCasDebut, $lte: dateCasFin } : { $exists: true };
-        //let filter = { "cas_classification": reqClassification, "cas_zone_nom": reqZone, "cas_resume": reqResume, reqDate }
-        db.collection('cas').aggregate(
-            [
-                {
-                    $match:
-                    {
-                        $and:
-                            [
-                                { "cas_classification": reqClassification },
-                                { "cas_zone_nom": reqZone },
-                                { "cas_resume": reqResume }
-                            ]
-                    }
-                }
-            ])
+        let filter = { "cas_classification": reqClassification, "cas_zone_nom": reqZone, "cas_resume": reqResume }
+        db.collection('cas')
+            .find(filter)
             .skip(page * pagesize)
             .limit(pagesize)
             .toArray()
             .then(cas => {
-                count = cas.length
-                callback(cas, count)
+                db.collection('cas')
+                    .find(filter)
+                    .count()
+                    .then(count => callback(cas, count))
             })
     });
 };

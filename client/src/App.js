@@ -1,12 +1,12 @@
 import React from 'react';
 import MyToolBar from './components/layout/MyToolBar';
-import MyTable from './components/MyTable';
+import CasTable from './components/table/CasTable';
 
 function App() {
   return (
     <div>
       <MyToolBar />
-      <MyTable />
+      <CasTable />
     </div>
   );
 }
