@@ -12,32 +12,42 @@ app.listen(8888, function () {
 
 
 app.get('/cas', function (req, res) {
+	let page = parseInt(req.query.page || 1);
+	let pagesize = parseInt(req.query.pagesize || 10);
 	let classification = req.query.classification || '';
 	let zone = req.query.zone || '';
 	let resume = req.query.resume || '';
-	mongoDBModule.findcasByFilter(classification, zone, resume, function (cas, count) {
-		let responseJson = { "count": count, "data": cas }
-		res.send(responseJson);
+	/*
+	let dateDebut = req.query.dateCasDebut || '';
+	let dateCasDebut = new Date(dateDebut)
+	let dateFin = req.query.dateCasFin || '';
+	let dateCasFin = new Date(dateFin);
+	console.log(dateCasDebut);
+	console.log(dateCasFin);
+	*/
+	mongoDBModule.findcasByFilter(page, pagesize, classification, zone, resume, function (cas, count) {
+		let responseJson = { "count": count, "page": page, "pagesize": pagesize, "data": cas }
+		res.send(JSON.stringify(responseJson));
 	})
 })
 
 app.get('/cas/:id', function (req, res) {
 	const idCas = parseInt(req.params.id);
-    mongoDBModule.findCasById(idCas, function (cas) {
-        res.send(JSON.stringify(cas));
-    })
+	mongoDBModule.findCasById(idCas, function (cas) {
+		res.send(JSON.stringify(cas));
+	})
 });
 
 app.get('/temoignages/:id', function (req, res) {
-    const idTemoignage = parseInt(req.params.id);
-    mongoDBModule.findTemoignageById(idTemoignage, function (temoignage) {
-        res.send(JSON.stringify(temoignage));
-    })
+	const idTemoignage = parseInt(req.params.id);
+	mongoDBModule.findTemoignageById(idTemoignage, function (temoignage) {
+		res.send(JSON.stringify(temoignage));
+	})
 });
 
 app.get('/cas/:id/temoignages', function (req, res) {
-    const idCas = parseInt(req.params.id);
-    mongoDBModule.findTemoignagesByCasId(idCas, function (temoignages) {
-        res.send(JSON.stringify(temoignages));
-    })
+	const idCas = parseInt(req.params.id);
+	mongoDBModule.findTemoignagesByCasId(idCas, function (temoignages) {
+		res.send(JSON.stringify(temoignages));
+	})
 });

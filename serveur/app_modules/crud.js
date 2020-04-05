@@ -6,7 +6,7 @@ const dbName = 'geipan_database';
 const url = 'mongodb://geipan_user:geipan2020@ds113936.mlab.com:13936/' + dbName;
 
 const client = new MongoClient(url);
-exports.findcasByFilter = function (classification, zone, resume, dateCasDebut, dateCasFin, callback) {
+exports.findcasByFilter = function (page, pagesize, classification, zone, resume, callback) {
     let count;
     client.connect(function (err) {
         assert.equal(null, err);
@@ -15,21 +15,10 @@ exports.findcasByFilter = function (classification, zone, resume, dateCasDebut, 
         let reqClassification = classification ? classification : { $exists: true };
         let reqZone = zone ? zone : { $exists: true };
         let reqResume = resume ? { $regex: ".*" + resume + ".*", $options: "i" } : { $exists: true };
-        let reqDate = (dateCasDebut && dateCasFin) ? { $gte: dateCasDebut, $lte: dateCasFin } : { $exists: true };
+        //let reqDate = (dateCasDebut && dateCasFin) ? { $gte: dateCasDebut, $lte: dateCasFin } : { $exists: true };
         //let filter = { "cas_classification": reqClassification, "cas_zone_nom": reqZone, "cas_resume": reqResume, reqDate }
         db.collection('cas').aggregate(
             [
-                {
-                    $addFields: {
-                        "cas_date": {
-                            $dateFromParts: {
-                                "cas_AAAA": $year,
-                                "cas_MM": $month,
-                                "cas_JJ": $day
-                            }
-                        }
-                    }
-                },
                 {
                     $match:
                     {
@@ -37,12 +26,15 @@ exports.findcasByFilter = function (classification, zone, resume, dateCasDebut, 
                             [
                                 { "cas_classification": reqClassification },
                                 { "cas_zone_nom": reqZone },
-                                { "cas_resume": reqResume },
-                                { "cas_date": reqDate }
+                                { "cas_resume": reqResume }
                             ]
                     }
                 }
-            ]).toArray().then(cas => {
+            ])
+            .skip(page * pagesize)
+            .limit(pagesize)
+            .toArray()
+            .then(cas => {
                 count = cas.length
                 callback(cas, count)
             })
@@ -53,7 +45,7 @@ exports.findCasById = function (idCas, callback) {
     client.connect(function (err) {
         assert.equal(null, err);
         const db = client.db(dbName);
-        const query = {id_cas: idCas};
+        const query = { id_cas: idCas };
         db.collection('cas').findOne(query, (err, item) => {
             callback(item);
         })
@@ -62,13 +54,13 @@ exports.findCasById = function (idCas, callback) {
 
 exports.findTemoignageById = function (idTemoignange, callback) {
     client.connect(function (err) {
-            assert.equal(null, err);
-            const db = client.db(dbName);
-            const query = {id_temoignage: idTemoignange};
-            db.collection('temoignages').findOne(query, (err, item) => {
-                callback(item);
-            })
-        }
+        assert.equal(null, err);
+        const db = client.db(dbName);
+        const query = { id_temoignage: idTemoignange };
+        db.collection('temoignages').findOne(query, (err, item) => {
+            callback(item);
+        })
+    }
     )
 };
 
@@ -76,8 +68,8 @@ exports.findTemoignagesByCasId = function (idCas, callback) {
     client.connect(function (err) {
         assert.equal(null, err);
         const db = client.db(dbName);
-        const query = {id_cas: idCas};
-        db.collection('temoignages').find(query).toArray().then( items => {
+        const query = { id_cas: idCas };
+        db.collection('temoignages').find(query).toArray().then(items => {
             callback(items);
         })
     })
