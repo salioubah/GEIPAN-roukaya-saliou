@@ -47,7 +47,8 @@ app.get('/temoignages/:id', function (req, res) {
 
 app.get('/cas/:id/temoignages', function (req, res) {
 	const idCas = parseInt(req.params.id);
-	mongoDBModule.findTemoignagesByCasId(idCas, function (temoignages) {
-		res.send(JSON.stringify(temoignages));
+	mongoDBModule.findTemoignagesByCasId(idCas, function (temoignages, count) {
+		let responseJson = { "count": count, "data": temoignages }
+		res.send(JSON.stringify(responseJson));
 	})
 });

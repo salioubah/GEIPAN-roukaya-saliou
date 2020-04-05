@@ -70,7 +70,7 @@ exports.findTemoignagesByCasId = function (idCas, callback) {
         const db = client.db(dbName);
         const query = { id_cas: idCas };
         db.collection('temoignages').find(query).toArray().then(items => {
-            callback(items);
+            callback(items, items.length);
         })
     })
 };
