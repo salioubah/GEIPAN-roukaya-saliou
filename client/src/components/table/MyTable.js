@@ -9,7 +9,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Grid, TablePagination } from '@material-ui/core';
 import CasPagination from './CasPagination'
+import {UIRouterReact} from "@uirouter/react";
 
+const router = new UIRouterReact();
 export default class MyTable extends React.Component {
   constructor(props) {
     super(props)
@@ -22,6 +24,12 @@ export default class MyTable extends React.Component {
   changePageSize() {
     this.props.changePageSize()
   }
+
+    handleRowClick = (event, id) => {
+        console.log(id);
+        router.stateService.go('detailsCas', {id: id})
+    };
+
   render() {
     return (
       <div>
@@ -46,7 +54,9 @@ export default class MyTable extends React.Component {
                 </TableHead>
                 <TableBody>
                   {this.props.cas.map(row => (
-                    <TableRow key={row._id}>
+                    <TableRow key={row._id}
+                              onClick={event => this.handleRowClick(event, row)}
+                    >
                       <TableCell component="th" scope="row">
                         {row.cas_nom_dossier}
                       </TableCell>

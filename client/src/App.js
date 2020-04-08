@@ -1,14 +1,14 @@
 import React from 'react';
 import MyToolBar from './components/layout/MyToolBar';
-import CasTable from './components/table/CasTable';
+import {UIView} from "@uirouter/react";
 
 function App() {
-  return (
-    <div>
-      <MyToolBar />
-      <CasTable />
-    </div>
-  );
+    return (
+        <div>
+            <MyToolBar/>
+            <UIView/>
+        </div>
+    );
 }
 
 export default App;
