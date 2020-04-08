@@ -46,7 +46,7 @@ export default class DetailsCas extends React.Component {
             return <div>Chargement…</div>;
         } else {
             return (
-                <Card style={{marginTop: '100px'}}>
+                <Card style={{margin: '100px'}}>
                     <CardContent>
                         <h1>Details cas </h1>
                     <table style={{width: '100%'}}>
