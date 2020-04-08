@@ -60,6 +60,10 @@ class CasTable extends React.Component {
         }, this.getcasFromServer)
     }
 
+    goToCasDetail = (event, id_cas) => {
+        this.props.transition.router.stateService.go('detailsCas', {id_cas: id_cas})
+    };
+
     getcasFromServer() {
         const { resume, departement, classe } = this.state;
         let reqResume = resume ? "&resume=" + resume : "";
@@ -111,6 +115,7 @@ class CasTable extends React.Component {
                         pageSize={pageSize}
                         changePage={this.changePage}
                         changePageSize={this.changePageSize}
+                        onRowClick={this.goToCasDetail}
                     />
                 </div>
 

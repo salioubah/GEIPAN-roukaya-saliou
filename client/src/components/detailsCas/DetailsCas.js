@@ -38,7 +38,6 @@ export default class DetailsCas extends React.Component {
                 }
             )
     }
-
     render() {
         const { error, isLoaded, cas } = this.state;
         if (error) {
@@ -65,7 +64,6 @@ export default class DetailsCas extends React.Component {
                             <td>Zone:</td>
                             <td>{cas.cas_zone_nom}</td>
                         </tr>
-
                         <tr>
                             <td>Departement:</td>
                             <td>{cas.cas_zone_type}</td>

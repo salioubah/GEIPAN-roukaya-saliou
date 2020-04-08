@@ -9,14 +9,13 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Grid, TablePagination } from '@material-ui/core';
 import CasPagination from './CasPagination'
-import {UIRouterReact} from "@uirouter/react";
 
-const router = new UIRouterReact();
 export default class MyTable extends React.Component {
   constructor(props) {
     super(props)
     this.changePage = this.changePage.bind(this);
     this.changePageSize = this.changePageSize.bind(this);
+    this.onRowClick = this.onRowClick.bind(this);
   }
   changePage() {
     this.props.changePage()
@@ -25,10 +24,9 @@ export default class MyTable extends React.Component {
     this.props.changePageSize()
   }
 
-    handleRowClick = (event, id) => {
-        console.log(id);
-        router.stateService.go('detailsCas', {id: id})
-    };
+  onRowClick(event, id_cas) {
+    this.props.onRowClick(event, id_cas);
+  };
 
   render() {
     return (
@@ -55,7 +53,7 @@ export default class MyTable extends React.Component {
                 <TableBody>
                   {this.props.cas.map(row => (
                     <TableRow key={row.id_cas}
-                              onClick={event => this.handleRowClick(event, row.id_cas)}
+                              onClick={event => this.onRowClick(event, row.id_cas)}
                     >
                       <TableCell component="th" scope="row">
                         {row.cas_nom_dossier}
