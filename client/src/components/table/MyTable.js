@@ -52,8 +52,8 @@ export default class MyTable extends React.Component {
                 </TableHead>
                 <TableBody>
                   {this.props.cas.map(row => (
-                    <TableRow key={row.id_cas}
-                              onClick={event => this.onRowClick(event, row.id_cas)}
+                    <TableRow style={{ cursor: 'pointer' }} key={row.id_cas}
+                      onClick={event => this.onRowClick(event, row.id_cas)}
                     >
                       <TableCell component="th" scope="row">
                         {row.cas_nom_dossier}
