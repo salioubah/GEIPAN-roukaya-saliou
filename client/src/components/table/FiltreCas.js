@@ -1,5 +1,6 @@
 import React from 'react'
-import { TextField, Grid, FormLabel, RadioGroup, FormControlLabel, Radio, Paper, Button, Icon } from '@material-ui/core'
+import { TextField, Grid, FormLabel, RadioGroup, FormControlLabel, Radio, Paper, /*Button, Icon */ } from '@material-ui/core'
+import FiltreDate from './FiltreDate';
 
 class FiltreCas extends React.Component {
     constructor(props) {
@@ -10,6 +11,8 @@ class FiltreCas extends React.Component {
         this.handleChangeResume = this.handleChangeResume.bind(this);
         this.handleChangeDepartement = this.handleChangeDepartement.bind(this);
         this.handleChangeClasse = this.handleChangeClasse.bind(this);
+        this.handleChangeDateDepart = this.handleChangeDateDepart.bind(this);
+        this.handleChangeDateFin = this.handleChangeDateFin.bind(this);
     }
     handleChangeClasse(event) {
         this.setState({
@@ -21,6 +24,12 @@ class FiltreCas extends React.Component {
     }
     handleChangeDepartement(event) {
         this.props.changeDepartement(event)
+    }
+    handleChangeDateDepart(event) {
+        this.props.changeDateDepart(event)
+    }
+    handleChangeDateFin(event) {
+        this.props.changeDateFin(event)
     }
     render() {
         return (
@@ -44,13 +53,19 @@ class FiltreCas extends React.Component {
                     <Grid item>
                         <TextField label="Zone géographique" onChange={this.handleChangeDepartement} />
                     </Grid>
+                    <Grid item>
+                        <FiltreDate onChangeDate={this.handleChangeDateDepart} titre="Du" />
+                    </Grid>
+                    <Grid item>
+                        <FiltreDate onChangeDate={this.handleChangeDateFin} titre="au" />
+                    </Grid>
                 </Grid>
-                <Button
+                {/* <Button
                     variant="contained"
                     color="primary"
                     size="large"
                     startIcon={<Icon>save</Icon>}
-                >Recherche</Button>
+                >Recherche</Button> */}
             </form>
         )
     }

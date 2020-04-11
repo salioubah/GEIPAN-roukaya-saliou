@@ -25,15 +25,13 @@ app.get('/cas', function (req, res) {
 	let classification = req.query.classification || '';
 	let zone = req.query.zone || '';
 	let resume = req.query.resume || '';
-	/*
-	let dateDebut = req.query.dateCasDebut || '';
-	let dateCasDebut = new Date(dateDebut)
-	let dateFin = req.query.dateCasFin || '';
-	let dateCasFin = new Date(dateFin);
+
+	let dateCasDebut = req.query.dateCasDebut ? new Date(req.query.dateCasDebut) : '';
+	let dateCasFin = req.query.dateCasFin ? new Date(req.query.dateCasFin) : '';
 	console.log(dateCasDebut);
 	console.log(dateCasFin);
-	*/
-	mongoDBModule.findcasByFilter(page, pagesize, classification, zone, resume, function (cas, count) {
+
+	mongoDBModule.findcasByFilter(page, pagesize, dateCasDebut, dateCasFin, classification, zone, resume, function (cas, count) {
 		let responseJson = { "count": count, "page": page, "pagesize": pagesize, "data": cas }
 		res.send(JSON.stringify(responseJson));
 	})

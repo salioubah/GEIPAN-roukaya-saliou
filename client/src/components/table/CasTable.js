@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import React from 'react'
 import Mytable from './MyTable'
 import FiltreCas from './FiltreCas';
@@ -12,6 +13,8 @@ class CasTable extends React.Component {
             resume: "",
             departement: "",
             classe: "tous",
+            dateDepart: "",
+            dateFin: "",
             count: 0,
             page: 0,
             pageSize: 20
@@ -21,6 +24,8 @@ class CasTable extends React.Component {
         this.changeResume = this.changeResume.bind(this);
         this.changeDepartement = this.changeDepartement.bind(this);
         this.changeClasse = this.changeClasse.bind(this);
+        this.changeDateDepart = this.changeDateDepart.bind(this);
+        this.changeDateFin = this.changeDateFin.bind(this);
     }
 
     componentDidMount() {
@@ -28,23 +33,34 @@ class CasTable extends React.Component {
     }
 
     changeResume(event) {
-        console.log("CasTable");
         this.setState({
             resume: event.target.value
         }, this.getcasFromServer)
     }
 
     changeDepartement(event) {
-        console.log("CasTable");
         this.setState({
             departement: event.target.value
         }, this.getcasFromServer)
     }
 
     changeClasse(event) {
-        console.log("CasTable");
         this.setState({
             classe: event.target.value
+        }, this.getcasFromServer)
+    }
+
+    changeDateDepart(event) {
+        var result = format(new Date(event), 'yyyy-MM-dd')
+        this.setState({
+            dateDepart: result
+        }, this.getcasFromServer)
+    }
+
+    changeDateFin(event) {
+        var result = format(new Date(event), 'yyyy-MM-dd')
+        this.setState({
+            dateFin: result
         }, this.getcasFromServer)
     }
 
@@ -61,15 +77,17 @@ class CasTable extends React.Component {
     }
 
     goToCasDetail = (event, id_cas) => {
-        this.props.transition.router.stateService.go('detailsCas', {id_cas: id_cas})
+        this.props.transition.router.stateService.go('detailsCas', { id_cas: id_cas })
     };
 
     getcasFromServer() {
-        const { resume, departement, classe } = this.state;
+        const { resume, departement, classe, dateDepart, dateFin } = this.state;
         let reqResume = resume ? "&resume=" + resume : "";
         let reqDepartement = departement ? "&zone=" + departement : "";
         let reqClasse = (classe !== "tous" && classe) ? "&classification=" + classe : "";
-        let url = "http://localhost:8888/cas?page=" + this.state.page + "&pagesize=" + this.state.pageSize + reqResume + reqDepartement + reqClasse;
+        let reqDateDepart = dateDepart ? "&dateCasDebut=" + dateDepart : "";
+        let reqDateFin = dateFin ? "&dateCasFin=" + dateFin : "";
+        let url = "http://localhost:8888/cas?page=" + this.state.page + "&pagesize=" + this.state.pageSize + reqResume + reqDepartement + reqClasse + reqDateDepart + reqDateFin;
         fetch(url)
             .then(res => res.json())
             .then(
@@ -107,6 +125,8 @@ class CasTable extends React.Component {
                         changeResume={this.changeResume}
                         changeDepartement={this.changeDepartement}
                         changeClasse={this.changeClasse}
+                        changeDateDepart={this.changeDateDepart}
+                        changeDateFin={this.changeDateFin}
                     />
                     <Mytable
                         cas={cas}
