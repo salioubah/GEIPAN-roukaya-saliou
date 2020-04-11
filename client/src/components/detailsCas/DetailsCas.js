@@ -25,7 +25,6 @@ export default class DetailsCas extends React.Component {
             open: false
         };
     }
-
     componentDidMount() {
         const {id_cas} = this.props.$stateParams;
         this.getcasIdFromServer(id_cas);
@@ -147,21 +146,20 @@ export default class DetailsCas extends React.Component {
                                                             aria-describedby="alert-dialog-slide-description"
                                                             open={open}>
                                                         <DialogTitle id="alert-dialog-title">
-                                                            Modal title
+                                                            Details du temoignage:
                                                         </DialogTitle>
                                                         <DialogContent dividers>
                                                             <Typography gutterBottom>
-                                                                Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-                                                                in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                                                              Temoignage Id: {temoignage.id_temoignage}
                                                             </Typography>
                                                             <Typography gutterBottom>
-                                                                Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-                                                                lacus vel augue laoreet rutrum faucibus dolor auctor.
+                                                                Nom temoignage: {temoignage.tem_nom_dossier}
                                                             </Typography>
                                                             <Typography gutterBottom>
-                                                                Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-                                                                scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-                                                                auctor fringilla.
+                                                                N°etude du temoignage: {temoignage.cas_numEtude}
+                                                            </Typography>
+                                                            <Typography gutterBottom>
+                                                                Resumé du temoignage: {temoignage.tem_resume}
                                                             </Typography>
                                                         </DialogContent>
                                                         <DialogActions>
