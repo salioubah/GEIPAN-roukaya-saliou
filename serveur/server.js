@@ -46,6 +46,14 @@ app.get('/cas/:id', function (req, res) {
 	})
 });
 
+app.get('/cas/:id/temoignages', function (req, res) {
+    const idCas = parseInt(req.params.id);
+    mongoDBModule.findTemoignagesByCasId(idCas, function (temoignages, count) {
+        let responseJson = { "count": count, "data": temoignages }
+        res.send(JSON.stringify(responseJson));
+    })
+});
+
 app.get('/temoignages/:id', function (req, res) {
 	const idTemoignage = parseInt(req.params.id);
 	mongoDBModule.findTemoignageById(idTemoignage, function (temoignage) {
@@ -53,10 +61,3 @@ app.get('/temoignages/:id', function (req, res) {
 	})
 });
 
-app.get('/cas/:id/temoignages', function (req, res) {
-	const idCas = parseInt(req.params.id);
-	mongoDBModule.findTemoignagesByCasId(idCas, function (temoignages, count) {
-		let responseJson = { "count": count, "data": temoignages }
-		res.send(JSON.stringify(responseJson));
-	})
-});
