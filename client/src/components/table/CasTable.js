@@ -51,14 +51,14 @@ class CasTable extends React.Component {
     }
 
     changeDateDepart(event) {
-        var result = format(new Date(event), 'yyyy-MM-dd')
+        var result = event ? format(new Date(event), 'yyyy-MM-dd') : "";
         this.setState({
             dateDepart: result
         }, this.getcasFromServer)
     }
 
     changeDateFin(event) {
-        var result = format(new Date(event), 'yyyy-MM-dd')
+        var result = event ? format(new Date(event), 'yyyy-MM-dd') : "";
         this.setState({
             dateFin: result
         }, this.getcasFromServer)

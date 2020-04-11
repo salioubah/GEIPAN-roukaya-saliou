@@ -28,8 +28,6 @@ app.get('/cas', function (req, res) {
 
 	let dateCasDebut = req.query.dateCasDebut ? new Date(req.query.dateCasDebut) : '';
 	let dateCasFin = req.query.dateCasFin ? new Date(req.query.dateCasFin) : '';
-	console.log(dateCasDebut);
-	console.log(dateCasFin);
 
 	mongoDBModule.findcasByFilter(page, pagesize, dateCasDebut, dateCasFin, classification, zone, resume, function (cas, count) {
 		let responseJson = { "count": count, "page": page, "pagesize": pagesize, "data": cas }
@@ -45,11 +43,11 @@ app.get('/cas/:id', function (req, res) {
 });
 
 app.get('/cas/:id/temoignages', function (req, res) {
-    const idCas = parseInt(req.params.id);
-    mongoDBModule.findTemoignagesByCasId(idCas, function (temoignages, count) {
-        let responseJson = { "count": count, "data": temoignages }
-        res.send(JSON.stringify(responseJson));
-    })
+	const idCas = parseInt(req.params.id);
+	mongoDBModule.findTemoignagesByCasId(idCas, function (temoignages, count) {
+		let responseJson = { "count": count, "data": temoignages }
+		res.send(JSON.stringify(responseJson));
+	})
 });
 
 app.get('/temoignages/:id', function (req, res) {
