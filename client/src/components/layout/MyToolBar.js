@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Button, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,6 +32,10 @@ export default function MyToolBar() {
           <Typography variant="h6" className={classes.title}>
             GEIPAN
           </Typography>
+          <Grid container justify="center" spacing={2}>
+            <Button color="inherit"><strong>Home</strong></Button>
+            <Button color="inherit"><strong>Statistiques</strong></Button>
+          </Grid>
         </Toolbar>
       </AppBar>
     </div>
