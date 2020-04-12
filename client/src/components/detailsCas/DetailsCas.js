@@ -10,8 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
-
-
 export default class DetailsCas extends React.Component {
 
     constructor(props) {
@@ -140,6 +138,7 @@ export default class DetailsCas extends React.Component {
                                                         color="primary"
                                                         clickable
                                                         onClick={event => this.openModal()}
+                                                        style={{margin: '5px'}}
                                                     />
                                                     <Dialog onClose={() => this.handleClose()}
                                                             aria-labelledby="alert-dialog-slide-title"
@@ -148,19 +147,71 @@ export default class DetailsCas extends React.Component {
                                                         <DialogTitle id="alert-dialog-title">
                                                             Details du temoignage:
                                                         </DialogTitle>
+
                                                         <DialogContent dividers>
-                                                            <Typography gutterBottom>
-                                                              Temoignage Id: {temoignage.id_temoignage}
+                                                            <Typography gutterBottom style={{backgroundColor:'lightgrey'}}>
+                                                               <center>Temoin:</center>
                                                             </Typography>
+
                                                             <Typography gutterBottom>
-                                                                Nom temoignage: {temoignage.tem_nom_dossier}
+                                                                Heure et date de l'observation: {temoignage.obs_date_heure}
                                                             </Typography>
+
                                                             <Typography gutterBottom>
-                                                                N°etude du temoignage: {temoignage.cas_numEtude}
+                                                              Adresse: {temoignage.obs_1_adr_commune}
                                                             </Typography>
+
                                                             <Typography gutterBottom>
-                                                                Resumé du temoignage: {temoignage.tem_resume}
+                                                               Age: {temoignage.tem_age}
                                                             </Typography>
+
+                                                            <Typography gutterBottom>
+                                                                Sexe: {temoignage.tem_genre}
+                                                            </Typography>
+
+
+                                                            <Typography gutterBottom style={{backgroundColor:'lightgrey'}}>
+                                                                <center>Conditions:</center>
+                                                            </Typography>
+
+                                                            <Typography gutterBottom>
+                                                                Environnement: {temoignage.obs_1_env_sol_type}
+                                                            </Typography>
+
+                                                            <Typography gutterBottom>
+                                                              Condition meteo: {temoignage.obs_conditions_meteo}
+                                                            </Typography>
+
+                                                            <Typography gutterBottom>
+                                                              cadre de reference: {temoignage.obs_1_cadre_reference_type}
+                                                            </Typography>
+
+                                                            <Typography gutterBottom>
+                                                                Durée d'observation: {temoignage.obs_duree_lib}
+                                                            </Typography>
+
+                                                            <Typography gutterBottom style={{backgroundColor:'lightgrey'}}>
+                                                                <center>Localisation:</center>
+                                                            </Typography>
+
+                                                            <Typography gutterBottom>
+                                                                Cap: {temoignage.obs_1_cap}
+                                                            </Typography>
+
+                                                            <Typography gutterBottom>
+                                                                Trajectoire: {temoignage.obs_1_trajectoire_lib}
+                                                            </Typography>
+
+                                                            <Typography gutterBottom>
+                                                                Vitesse: {temoignage.obs_1_vitesse_types}
+                                                            </Typography>
+
+                                                            <Typography gutterBottom>
+                                                                Taille apparente: {temoignage.obs_1_taille_apparente_type}
+                                                            </Typography>
+
+
+
                                                         </DialogContent>
                                                         <DialogActions>
                                                             <Button onClick={() => this.handleClose()} color="primary">
