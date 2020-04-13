@@ -57,3 +57,16 @@ app.get('/temoignages/:id', function (req, res) {
 	})
 });
 
+app.get('/departements', function (req, res) {
+    mongoDBModule.findDistinctDepartements(function (temoignages) {
+        console.log(temoignages.length)
+        res.send(JSON.stringify(temoignages));
+    })
+});
+app.get('/departementCas', function (req, res) {
+    let zone = req.query.zone || '';
+    mongoDBModule.findcasByDepartement(zone, function (cas, count) {
+        let responseJson = { "count": count, "data": cas }
+        res.send(JSON.stringify(responseJson));
+    })
+})

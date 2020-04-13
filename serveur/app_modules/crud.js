@@ -123,3 +123,33 @@ exports.findTemoignagesByCasId = function (idCas, callback) {
         })
     })
 };
+
+exports.findDistinctDepartements = function (callback) {
+    client.connect(function (err) {
+        assert.equal(null, err);
+        const db = client.db(dbName);
+        db.collection('cas').distinct("cas_zone_nom").then(departements => {
+            callback(departements);
+        })
+    })
+};
+
+exports.findcasByDepartement = function (zone, callback) {
+    let count;
+    client.connect(function (err) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+        const db = client.db(dbName);
+        let reqZone = zone ? zone : { $exists: true };
+        let filter = {
+            "cas_zone_nom": reqZone
+        }
+        db.collection('cas')
+            .find(filter)
+            .toArray(function (error, cas) {
+                assert.equal(null, error);
+                count = cas.length
+                callback(cas, count)
+            })
+    });
+};
