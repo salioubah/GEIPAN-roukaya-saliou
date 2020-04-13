@@ -4,9 +4,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import DetailsCas from "./components/detailsCas/DetailsCas";
 import ReactDOM from 'react-dom';
-import {UIRouter, pushStateLocationPlugin} from "@uirouter/react";
+import { UIRouter, pushStateLocationPlugin } from "@uirouter/react";
 import CasTable from "./components/table/CasTable";
-import DepartementData from "./components/stats/DepartementData";
+import Statistique from "./components/stats/Statistique";
 
 let defaultState = {
     name: 'default',
@@ -29,7 +29,7 @@ const homeState = {
 const statsState = {
     name: "stats",
     url: "/stats",
-    component: DepartementData
+    component: Statistique
 };
 
 ReactDOM.render(
@@ -37,7 +37,7 @@ ReactDOM.render(
         plugins={[pushStateLocationPlugin]}
         states={[detailsCasState, defaultState, homeState, statsState]}
     >
-        <App/>
+        <App />
     </UIRouter>
 
     , document.getElementById('root'));

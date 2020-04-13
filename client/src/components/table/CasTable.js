@@ -114,10 +114,10 @@ class CasTable extends React.Component {
     render() {
         const { error, isLoaded, cas, count, page, pageSize } = this.state;
         if (error) {
-            return <div>Erreur : {error.message}</div>;
+            return <div style={{ textAlign: "center", marginTop: 80, }}>Erreur : {error.message}</div>;
         } else if (!isLoaded) {
             // Trouver un composant de chargement...
-            return <div>Chargement…</div>;
+            return <div style={{ textAlign: "center", marginTop: 80, }}>Chargement…</div>;
         } else {
             return (
                 <div style={{ textAlign: "center", marginTop: 80, }}>

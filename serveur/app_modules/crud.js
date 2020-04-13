@@ -2,8 +2,6 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
 const dbName = 'geipan_database';
-// Connection URL
-//const url = 'mongodb://geipan_user:geipan2020@ds113936.mlab.com:13936/' + dbName;
 const url = 'mongodb://localhost:27017' + dbName;
 
 const client = new MongoClient(url);
@@ -30,7 +28,6 @@ exports.findcasByFilter = function (page, pagesize, dateCasDebut, dateCasFin, cl
             reqDate = queryDate;
         }
         console.log(reqDate)
-        //let reqDate = (dateCasDebut && dateCasFin) ? { $gte: dateCasDebut, $lte: dateCasFin } : { $exists: true };
         let filter = {
             "cas_classification": reqClassification, "cas_zone_nom": reqZone, "cas_resume": reqResume, "cas_date": reqDate
         }
@@ -46,19 +43,6 @@ exports.findcasByFilter = function (page, pagesize, dateCasDebut, dateCasFin, cl
                 }
             }
         }
-        /*
-        db.collection('cas')
-            .find(filter)
-            .skip(page * pagesize)
-            .limit(pagesize)
-            .toArray()
-            .then(cas => {
-                db.collection('cas')
-                    .find(filter)
-                    .count()
-                    .then(count => callback(cas, count))
-            })
-        */
         db.collection('cas')
             .aggregate(
                 [
