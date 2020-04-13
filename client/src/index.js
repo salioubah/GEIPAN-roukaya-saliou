@@ -6,22 +6,36 @@ import DetailsCas from "./components/detailsCas/DetailsCas";
 import ReactDOM from 'react-dom';
 import {UIRouter, pushStateLocationPlugin} from "@uirouter/react";
 import CasTable from "./components/table/CasTable";
+import DepartementData from "./components/stats/DepartementData";
 
 let defaultState = {
     name: 'default',
     url: '/',
     component: CasTable
 };
+
 let detailsCasState = {
     name: 'detailsCas',
     url: '/detailsCas/:id_cas',
     component: DetailsCas
 };
 
+const homeState = {
+    name: "home",
+    url: "/home",
+    component: CasTable
+};
+
+const statsState = {
+    name: "stats",
+    url: "/stats",
+    component: DepartementData
+};
+
 ReactDOM.render(
     <UIRouter
         plugins={[pushStateLocationPlugin]}
-        states={[detailsCasState, defaultState]}
+        states={[detailsCasState, defaultState, homeState, statsState]}
     >
         <App/>
     </UIRouter>
