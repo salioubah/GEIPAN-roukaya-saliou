@@ -36,7 +36,7 @@ export default class Demo extends React.PureComponent {
             valueField="total"
             argumentField="Type"
           />
-          <Title text="Nombre de cas par département" />
+          <Title text={this.props.titre} />
           <Animation />
         </Chart>
       </Paper>
