@@ -2,10 +2,13 @@
 ``` bash
 
 # Importer les 2 fichiers CSV dans mongodb:
+```sh
 $ mongoimport --db geipan_database --collection cas --drop --file cas_pub.csv --type csv --headerline
 $ mongoimport --db geipan_database --collection temoignages --drop --file temoignages_pub.csv --type csv --headerline
+```
 
 # Tester l'existance de la Base de donnée(geipan_database) ainsi que les 2 collections (cas et temoignages):
+```sh
 $mongo
 >show dbs
 >use geipan_database
@@ -15,7 +18,7 @@ $mongo
 4464
 > db.temoignages.count()
 6850
-
+```
 # Lancer le serveur:
 cd serveur/
 npm install
