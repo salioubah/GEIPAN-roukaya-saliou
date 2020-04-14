@@ -20,11 +20,13 @@ export default class DetailsCas extends React.Component {
             isLoadedTemoignages: false,
             cas: null,
             temoignages: [],
-            open: false
+            open: false,
+            selectedTemoign: null
         };
     }
+
     componentDidMount() {
-        const { id_cas } = this.props.$stateParams;
+        const {id_cas} = this.props.$stateParams;
         this.getcasIdFromServer(id_cas);
         this.getcasIdByTemoignageFromServer(id_cas);
     }
@@ -69,9 +71,10 @@ export default class DetailsCas extends React.Component {
             )
     }
 
-    openModal() {
+    openModal(tem) {
         this.setState({
-            open: true
+            open: true,
+            selectedTemoign: tem
         })
     };
 
@@ -83,19 +86,20 @@ export default class DetailsCas extends React.Component {
 
 
     render() {
-        const { error, isLoadedCas, isLoadedTemoignages, cas, temoignages, open } = this.state;
+        const {error, isLoadedCas, isLoadedTemoignages, cas, temoignages, open, selectedTemoign} = this.state;
         if (error) {
             return <div>Erreur : {error.message}</div>;
         } else if (isLoadedCas && isLoadedTemoignages) {
             return (
-                <Card style={{ margin: '100px' }}>
-                    <CardContent>
-                        <div>
-                            <h2>{cas.cas_nom_dossier} </h2>
-                        </div>
-                        <table className="tab-cas">
+                <div>
+                    <Card style={{margin: '100px'}}>
+                        <CardContent>
+                            <div>
+                                <h2>{cas.cas_nom_dossier} </h2>
+                            </div>
+                            <table className="tab-cas">
 
-                            <tbody>
+                                <tbody>
 
                                 <tr>
                                     <td> label="Id:"</td>
@@ -130,108 +134,109 @@ export default class DetailsCas extends React.Component {
                                     <td> Temoignage(s):</td>
                                     <td>
                                         {
-                                            temoignages.map((temoignage, index) => {
+                                            temoignages.map((temoignage, index) => {//hanek ttparcouri fel les temoin
                                                 return (
                                                     <div key={index}>
                                                         <Chip
                                                             label={'temoignage ' + (index + 1)}
                                                             color="primary"
                                                             clickable
-                                                            onClick={event => this.openModal()}
-                                                            style={{ margin: '5px' }}
+                                                            onClick={() => this.openModal(temoignage)}
+                                                            style={{margin: '5px'}}
                                                         />
-                                                        <Dialog onClose={() => this.handleClose()}
-                                                            aria-labelledby="alert-dialog-slide-title"
-                                                            aria-describedby="alert-dialog-slide-description"
-                                                            open={open}>
-                                                            <DialogTitle id="alert-dialog-title">
-                                                                Details du temoignage:
-                                                        </DialogTitle>
-
-                                                            <DialogContent dividers>
-                                                                <Typography gutterBottom style={{ textAlign: 'center', backgroundColor: 'lightgrey' }}>
-                                                                    <span>Temoin:</span>
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    Heure et date de l'observation: {temoignage.obs_date_heure}
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    Adresse: {temoignage.obs_1_adr_commune}
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    Age: {temoignage.tem_age}
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    Sexe: {temoignage.tem_genre}
-                                                                </Typography>
-
-
-                                                                <Typography gutterBottom style={{ textAlign: 'center', backgroundColor: 'lightgrey' }}>
-                                                                    <span>Conditions:</span>
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    Environnement: {temoignage.obs_1_env_sol_type}
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    Condition meteo: {temoignage.obs_conditions_meteo}
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    cadre de reference: {temoignage.obs_1_cadre_reference_type}
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    Durée d'observation: {temoignage.obs_duree_lib}
-                                                                </Typography>
-
-                                                                <Typography gutterBottom style={{ textAlign: 'center', backgroundColor: 'lightgrey' }}>
-                                                                    <span>Localisation:</span>
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    Cap: {temoignage.obs_1_cap}
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    Trajectoire: {temoignage.obs_1_trajectoire_lib}
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    Vitesse: {temoignage.obs_1_vitesse_types}
-                                                                </Typography>
-
-                                                                <Typography gutterBottom>
-                                                                    Taille apparente: {temoignage.obs_1_taille_apparente_type}
-                                                                </Typography>
-
-
-
-                                                            </DialogContent>
-                                                            <DialogActions>
-                                                                <Button onClick={() => this.handleClose()} color="primary">
-                                                                    Fermer
-                                                            </Button>
-                                                            </DialogActions>
-                                                        </Dialog>
                                                     </div>
                                                 )
                                             })
                                         }
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </CardContent>
-                </Card>
+                                </tbody>
+                            </table>
+                        </CardContent>
+                    </Card>
+
+                    {selectedTemoign ?
+                        <Dialog onClose={() => this.handleClose()}
+                                aria-labelledby="alert-dialog-slide-title"
+                                aria-describedby="alert-dialog-slide-description"
+                                open={open}>
+                            <DialogTitle id="alert-dialog-title">
+                                Details du temoignage:
+                            </DialogTitle>
+
+                            <DialogContent dividers>
+                                <Typography gutterBottom style={{textAlign: 'center', backgroundColor: 'lightgrey'}}>
+                                    <span>Temoin:</span>
+                                </Typography>
+                                <Typography gutterBottom>
+                                    Heure et date de l'observation: {selectedTemoign.obs_date_heure}
+                                </Typography>
+
+                                <Typography gutterBottom>
+                                    Adresse: {selectedTemoign.obs_1_adr_commune}
+                                </Typography>
+
+                                <Typography gutterBottom>
+                                    Age: {selectedTemoign.tem_age}
+                                </Typography>
+
+                                <Typography gutterBottom>
+                                    Sexe: {selectedTemoign.tem_genre}
+                                </Typography>
+
+                                <Typography gutterBottom style={{textAlign: 'center', backgroundColor: 'lightgrey'}}>
+                                    <span>Conditions:</span>
+                                </Typography>
+
+                                <Typography gutterBottom>
+                                    Environnement: {selectedTemoign.obs_1_env_sol_type}
+                                </Typography>
+
+                                <Typography gutterBottom>
+                                    Condition meteo: {selectedTemoign.obs_conditions_meteo}
+                                </Typography>
+
+                                <Typography gutterBottom>
+                                    cadre de reference: {selectedTemoign.obs_1_cadre_reference_type}
+                                </Typography>
+
+                                <Typography gutterBottom>
+                                    Durée d'observation: {selectedTemoign.obs_duree_lib}
+                                </Typography>
+
+                                <Typography gutterBottom style={{textAlign: 'center', backgroundColor: 'lightgrey'}}>
+                                    <span>Localisation:</span>
+                                </Typography>
+
+                                <Typography gutterBottom>
+                                    Cap: {selectedTemoign.obs_1_cap}
+                                </Typography>
+
+                                <Typography gutterBottom>
+                                    Trajectoire: {selectedTemoign.obs_1_trajectoire_lib}
+                                </Typography>
+
+                                <Typography gutterBottom>
+                                    Vitesse: {selectedTemoign.obs_1_vitesse_types}
+                                </Typography>
+
+                                <Typography gutterBottom>
+                                    Taille apparente: {selectedTemoign.obs_1_taille_apparente_type}
+                                </Typography>
+
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={() => this.handleClose()} color="primary">
+                                    Fermer
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                        : null
+                    }</div>
+
             );
         } else {
-            return <div style={{ margin: '100px' }}>Chargement…</div>;
+            return <div style={{margin: '100px'}}>Chargement…</div>;
         }
     }
 }

@@ -6,9 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Button, Grid } from '@material-ui/core';
-
+import { FaHome, FaChartBar } from 'react-icons/fa';
 import {useSrefActive} from "@uirouter/react";
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,9 +36,10 @@ export default function MyToolBar() {
           <Typography variant="h6" className={classes.title}>
             GEIPAN
           </Typography>
-          <Grid container justify="center" spacing={2}>
-            <Button color="inherit" {...homeSref} ><strong>Home</strong></Button>
-            <Button color="inherit" {...statsSref} ><strong>Statistiques</strong></Button>
+
+          <Grid container  style={{marginLeft:'100px'}}>
+            <Button  color="inherit" {...homeSref} ><strong> <div> <FaHome/>Home</div> </strong></Button>
+            <Button color="inherit" {...statsSref} ><strong>  <div> <FaChartBar/> Statistiques</div> </strong></Button>
           </Grid>
         </Toolbar>
       </AppBar>
