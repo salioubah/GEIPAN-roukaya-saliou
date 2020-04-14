@@ -16,7 +16,7 @@ $mongo
 > db.temoignages.count()
 6850
 
-# Lancer le serrveur:
+# Lancer le serveur:
 cd serveur/
 npm install
 nodemon server.js (app listening on port 8888!)
