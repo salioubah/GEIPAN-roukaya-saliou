@@ -36,7 +36,7 @@ class FiltreCas extends React.Component {
             <form elevation={20} component={Paper}>
                 <Grid container justify="center" spacing={2}>
                     <Grid item>
-                        <TextField label="Mot clé dans le résumé" onChange={this.handleChangeResume} />
+                        <TextField label="Nom du cas" onChange={this.handleChangeResume} />
                     </Grid>
                     <Grid item>
                         <FormLabel component="legend">Type de Classe</FormLabel>
@@ -60,12 +60,6 @@ class FiltreCas extends React.Component {
                         <FiltreDate onChangeDate={this.handleChangeDateFin} titre="au" />
                     </Grid>
                 </Grid>
-                {/* <Button
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    startIcon={<Icon>save</Icon>}
-                >Recherche</Button> */}
             </form>
         )
     }

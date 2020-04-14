@@ -29,7 +29,7 @@ exports.findcasByFilter = function (page, pagesize, dateCasDebut, dateCasFin, cl
         }
         console.log(reqDate)
         let filter = {
-            "cas_classification": reqClassification, "cas_zone_nom": reqZone, "cas_resume": reqResume, "cas_date": reqDate
+            "cas_classification": reqClassification, "cas_zone_nom": reqZone, "cas_nom_dossier": reqResume, "cas_date": reqDate
         }
         let stage =
         {
