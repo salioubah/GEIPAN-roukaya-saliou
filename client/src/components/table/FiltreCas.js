@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField, Grid, FormLabel, RadioGroup, FormControlLabel, Radio, Paper, /*Button, Icon */ } from '@material-ui/core'
+import { TextField, Grid, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
 import FiltreDate from './FiltreDate';
 
 class FiltreCas extends React.Component {
@@ -33,11 +33,8 @@ class FiltreCas extends React.Component {
     }
     render() {
         return (
-            <form elevation={20} component={Paper}>
+            <form elevation={20}>
                 <Grid container justify="center" spacing={2}>
-                    <Grid item>
-                        <TextField label="Nom du cas" onChange={this.handleChangeResume} />
-                    </Grid>
                     <Grid item>
                         <FormLabel component="legend">Type de Classe</FormLabel>
                         <RadioGroup row aria-label="classification" name="classification" value={this.state.classification} onChange={this.handleChangeClasse}>
@@ -50,9 +47,16 @@ class FiltreCas extends React.Component {
                             <FormControlLabel value="D2" control={<Radio />} label="D2" />
                         </RadioGroup>
                     </Grid>
+                </Grid>
+                <Grid container justify="center" spacing={2}>
+                    <Grid item>
+                        <TextField label="Nom du cas" onChange={this.handleChangeResume} />
+                    </Grid>
                     <Grid item>
                         <TextField label="Zone géographique" onChange={this.handleChangeDepartement} />
                     </Grid>
+                </Grid>
+                <Grid container justify="center" spacing={2}>
                     <Grid item>
                         <FiltreDate onChangeDate={this.handleChangeDateDepart} titre="Du" />
                     </Grid>
