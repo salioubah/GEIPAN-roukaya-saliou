@@ -1,4 +1,29 @@
 # GEIPAN-roukaya-saliou-rania
+
+![Geipan!](img/geipan_logo.png "Algo génétique!")
+***
+
+## Participants
+
+> ### Roukaya IBEN SALAH
+> - Création du projet serveur
+> - Développement de fonctions Back End
+> - Détail des cas Back et Front End
+> - Témoignages et détails 
+> - Gestion de routage ***@uirouter/react***
+>
+> ### Rania BENSASSI
+> - Développement de fonctions Back End
+> - Réalisation de graphes (onglet stats)
+> - Gestion de filtres Date
+>
+> ### Mamadou Saliou BAH
+> - Création du projet Front End
+> - Développemnt de fonctions Back End
+> - Affichage des cas dans un tableau
+> - Gestion de la pagination côté Front et Back
+
+
 ```sh
 # Importer les 2 fichiers CSV dans mongodb:
 
