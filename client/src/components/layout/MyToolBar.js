@@ -38,8 +38,12 @@ export default function MyToolBar() {
           </Typography>
 
           <Grid container  style={{marginLeft:'100px'}}>
-            <Button  color="inherit" {...homeSref} ><strong> <div> <FaHome/>Home</div> </strong></Button>
-            <Button color="inherit" {...statsSref} ><strong>  <div> <FaChartBar/> Statistiques</div> </strong></Button>
+            <Button color="inherit" {...homeSref} >
+                <strong> <div style={{ fontSize: 15.8 }} ><FaHome/> Home </div> </strong>
+            </Button>
+            <Button color="inherit" {...statsSref} >
+                <strong> <div style={{ fontSize: 15.8 }} ><FaChartBar/>  Statistiques </div> </strong>
+            </Button>
           </Grid>
         </Toolbar>
       </AppBar>

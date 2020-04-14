@@ -102,7 +102,7 @@ export default class DetailsCas extends React.Component {
                                 <tbody>
 
                                 <tr>
-                                    <td> label="Id:"</td>
+                                    <td> Id:</td>
                                     <td>{cas.id_cas}</td>
                                 </tr>
 
