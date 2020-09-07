@@ -1,6 +1,6 @@
 # GEIPAN-roukaya-saliou-rania
 
-![Geipan!](img/geipan_logo.png "Algo génétique!")
+![Geipan!](img/GEIPAN_logo.png "Algo génétique!")
 ***
 
 ## Participants
